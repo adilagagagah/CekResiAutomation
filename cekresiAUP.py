@@ -4,13 +4,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 
-# Inisialisasi WebDriver dalam mode headless (tanpa membuka jendela browser)
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Menjalankan browser tanpa GUI
-driver = webdriver.Chrome(options=chrome_options)
+def setup_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--ignore-ssl-errors=yes")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    driver = webdriver.Chrome(options=chrome_options)
+    return driver
 
-# Fungsi untuk melakukan tracking resi
-def track_resi(resi_number):
+def track_resi_AUP(resi_number, driver):
     # Buka halaman tracking di AUP
     driver.get('https://aup.co.id/index.php/5098-2/')
 
@@ -47,7 +49,10 @@ def track_resi(resi_number):
     except Exception as e:
         return f'Error: {str(e)}'
 
-# Membaca daftar nomor resi dari file CSV tanpa header
+# Mulai hitung waktu
+start_time = time.time()
+
+driver = setup_driver()
 df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
 nomor_resi_list = df[0].tolist()
 
@@ -55,7 +60,7 @@ nomor_resi_list = df[0].tolist()
 hasil_tracking = []
 
 for resi in nomor_resi_list:
-    hasil = track_resi(resi)
+    hasil = track_resi_AUP(resi, driver)
     
     # Tentukan status berdasarkan apakah ada kata 'delivered' atau tidak
     if 'delivered' in hasil.lower():
@@ -69,5 +74,13 @@ for resi in nomor_resi_list:
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']}  {hasil['Status']}")
 
-# Jangan lupa tutup browser setelah selesai
+# Tutup browser setelah selesai
 driver.quit()
+
+# Hitung waktu eksekusi
+end_time = time.time()
+execution_time = end_time - start_time  # Menghitung selisih waktu dalam detik
+menit = int(execution_time // 60)  # Konversi ke menit
+detik = int(execution_time % 60)  # Sisa detik
+
+print(f"Kode dieksekusi selama: {menit} menit {detik} detik")
