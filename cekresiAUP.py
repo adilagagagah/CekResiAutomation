@@ -13,7 +13,6 @@ def setup_driver():
     return driver
 
 def track_resi_AUP(resi_number, driver):
-    # Buka halaman tracking di AUP
     driver.get('https://aup.co.id/index.php/5098-2/')
 
     # Masukkan nomor resi
@@ -24,17 +23,11 @@ def track_resi_AUP(resi_number, driver):
     submit_button = driver.find_element(By.NAME, 'form-submitted')
     submit_button.click()
 
-    # Tunggu beberapa detik agar halaman dan data dimuat sepenuhnya
     time.sleep(5)
 
     try:
-        # Ambil tabel hasil berdasarkan class 'ups-results'
         table = driver.find_element(By.CLASS_NAME, 'ups-results')
-
-        # Ambil semua baris dari tabel
         rows = table.find_elements(By.TAG_NAME, 'tr')
-
-        # Ambil <tr> terakhir dan <td> kedua
         if rows:
             last_row = rows[-1]
             tds = last_row.find_elements(By.TAG_NAME, 'td')
@@ -49,20 +42,16 @@ def track_resi_AUP(resi_number, driver):
     except Exception as e:
         return f'Error: {str(e)}'
 
-# Mulai hitung waktu
 start_time = time.time()
 
 driver = setup_driver()
 df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
 nomor_resi_list = df[0].tolist()
-
-# Tempatkan hasil pelacakan dalam list
 hasil_tracking = []
 
 for resi in nomor_resi_list:
     hasil = track_resi_AUP(resi, driver)
     
-    # Tentukan status berdasarkan apakah ada kata 'delivered' atau tidak
     if 'delivered' in hasil.lower():
         status = 'SELESAI'
     else:
@@ -70,17 +59,14 @@ for resi in nomor_resi_list:
     
     hasil_tracking.append({'No Resi': resi, 'Perjalanan Terakhir': hasil, 'Status': status})
 
-# Tampilkan hasil tracking
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']}  {hasil['Status']}")
 
-# Tutup browser setelah selesai
 driver.quit()
 
-# Hitung waktu eksekusi
 end_time = time.time()
-execution_time = end_time - start_time  # Menghitung selisih waktu dalam detik
-menit = int(execution_time // 60)  # Konversi ke menit
-detik = int(execution_time % 60)  # Sisa detik
+execution_time = end_time - start_time
+menit = int(execution_time // 60)
+detik = int(execution_time % 60)
 
 print(f"Kode dieksekusi selama: {menit} menit {detik} detik")
