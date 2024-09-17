@@ -48,7 +48,7 @@ def track_resi(resi_number):
         return f'Error: {str(e)}'
 
 # Membaca daftar nomor resi dari file CSV tanpa header
-df = pd.read_csv("../Cek Resi/cekresiAUP.csv", header=None)  # Menggunakan header=None
+df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
 nomor_resi_list = df[0].tolist()
 
 # Tempatkan hasil pelacakan dalam list

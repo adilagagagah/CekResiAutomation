@@ -16,7 +16,7 @@ def track_resi(resi_number):
     else:
         return f"HTTP error: {response.status_code}"
 
-df = pd.read_csv("../Cek Resi/cekresiLION.csv", header=None)
+df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiLION', header=None)
 nomor_resi_list = df[0].tolist()
 
 hasil_tracking = []
@@ -31,4 +31,4 @@ for resi in nomor_resi_list:
     hasil_tracking.append({'No Resi': resi, 'Perjalanan Terakhir': hasil, 'Status': status})
 
 for hasil in hasil_tracking:
-    print(f"{hasil['No Resi']}  {hasil['Status']}")
+    print(f"{hasil['No Resi']}  {hasil['Perjalanan Terakhir']}")
