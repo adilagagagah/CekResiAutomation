@@ -59,10 +59,10 @@ for resi in nomor_resi_list:
     
     hasil_tracking.append({'No Resi': resi, 'Perjalanan Terakhir': hasil, 'Status': status})
 
+driver.quit()
+
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']}  {hasil['Status']}")
-
-driver.quit()
 
 end_time = time.time()
 execution_time = end_time - start_time
