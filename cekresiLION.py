@@ -48,6 +48,7 @@ for resi in nomor_resi_list:
 
 driver.quit()
 
+print("KURIR : LION PARCEL")
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']} {hasil['Status']}")
     
@@ -56,4 +57,4 @@ execution_time = end_time - start_time
 menit = int(execution_time // 60)
 detik = int(execution_time % 60)
 
-print(f"Kode dieksekusi selama: {menit} menit {detik} detik")
+print(f"Kode dieksekusi selama: {menit} menit {detik} detik (LION PARCEL)")
