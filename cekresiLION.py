@@ -6,7 +6,7 @@ import time
 
 def setup_driver():
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-ssl-errors=yes")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--log-level=3")  # Hanya menampilkan error kritis
@@ -35,7 +35,7 @@ hasil_tracking = []
 for resi in nomor_resi_list:
     hasil = track_resi_lion(resi, driver)
     
-    if 'diterima' in hasil.lower():
+    if 'diterima oleh' in hasil.lower():
         status = 'SELESAI'
     else:
         status = 'OTW'
@@ -48,9 +48,8 @@ for resi in nomor_resi_list:
 
 driver.quit()
 
-# Tampilkan hasil tracking
 for hasil in hasil_tracking:
-    print(f"{hasil['No Resi']}  {hasil['Perjalanan Terakhir']}")
+    print(f"{hasil['No Resi']} {hasil['Status']}")
     
 end_time = time.time()
 execution_time = end_time - start_time
