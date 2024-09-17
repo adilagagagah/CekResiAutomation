@@ -9,14 +9,14 @@ def setup_driver():
     # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-ssl-errors=yes")
     chrome_options.add_argument("--ignore-certificate-errors")
-    service = Service(executable_path="path_to_chromedriver", log_path="NUL")
+    chrome_options.add_argument("--log-level=3")  # Hanya menampilkan error kritis
     driver = webdriver.Chrome(options=chrome_options)
     return driver
 
 def track_resi_lion(resi_number, driver):
     url = f"https://lionparcel.com/track/stt?q={resi_number}"
     driver.get(url)
-    time.sleep(7)
+    time.sleep(5)
     try:
         group_wrapper = driver.find_element(By.CLASS_NAME, 'group-wrapper')
         p_element = group_wrapper.find_element(By.TAG_NAME, 'p')
