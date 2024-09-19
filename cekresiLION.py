@@ -37,6 +37,8 @@ for resi in nomor_resi_list:
     
     if 'diterima oleh' in hasil.lower():
         status = 'SELESAI'
+    elif 'tidak ditemukan' in hasil.lower():
+        status = 'INVALID'
     else:
         status = 'OTW'
     

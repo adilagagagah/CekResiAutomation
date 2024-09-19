@@ -28,17 +28,9 @@ def track_resi_AUP(resi_number, driver):
     try:
         table = driver.find_element(By.CLASS_NAME, 'ups-results')
         rows = table.find_elements(By.TAG_NAME, 'tr')
-        if rows:
-            last_row = rows[-1]
-            tds = last_row.find_elements(By.TAG_NAME, 'td')
-            
-            if len(tds) >= 2:
-                return tds[1].text
-            else:
-                return 'Baris terakhir tidak memiliki dua kolom.'
-        else:
-            return 'Tidak ada baris di tabel.'
-    
+        last_row = rows[-1]
+        tds = last_row.find_elements(By.TAG_NAME, 'td')
+        return tds[1].text
     except Exception as e:
         return f'Error: {str(e)}'
 
@@ -54,6 +46,8 @@ for resi in nomor_resi_list:
     
     if 'delivered' in hasil.lower():
         status = 'SELESAI'
+    elif 'Error' in hasil.lower():
+        status = 'INVALID'
     else:
         status = 'OTW'
     
