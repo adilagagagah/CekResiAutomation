@@ -35,6 +35,8 @@ def track_resi_AUP(resi_number, driver):
         return f'Error: {str(e)}'
 
 start_time = time.time()
+print("KURIR : AUP EXPRESS")
+print(f"WAKTU : {start_time}")
 
 driver = setup_driver()
 df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
