@@ -23,7 +23,7 @@ def track_resi_AUP(resi_number, driver):
     submit_button = driver.find_element(By.NAME, 'form-submitted')
     submit_button.click()
 
-    time.sleep(5)
+    time.sleep(4)
 
     try:
         table = driver.find_element(By.CLASS_NAME, 'ups-results')
@@ -55,7 +55,7 @@ for resi in nomor_resi_list:
 
 driver.quit()
 
-print("KURIR : AUP EXPRESS")
+print("AUP EXPRESS")
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']}  {hasil['Status']}")
 
@@ -64,4 +64,6 @@ execution_time = end_time - start_time
 menit = int(execution_time // 60)
 detik = int(execution_time % 60)
 
+print(f"mulai   : {start_time}")
+print(f"selesai : {end_time}")
 print(f"Kode dieksekusi selama: {menit} menit {detik} detik (AUP EXPRESS)")
