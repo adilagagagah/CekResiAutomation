@@ -2,6 +2,7 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from datetime import datetime
 import time
 
 def setup_driver():
@@ -34,9 +35,9 @@ def track_resi_AUP(resi_number, driver):
     except Exception as e:
         return f'Error: {str(e)}'
 
-start_time = time.time()
+start_time = datetime.now()
 print("KURIR : AUP EXPRESS")
-print(f"WAKTU : {start_time}")
+print("WAKTU :" ,start_time.strftime("%H:%M:%S %d/%m/%Y"))
 
 driver = setup_driver()
 df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
@@ -61,11 +62,12 @@ print("AUP EXPRESS")
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']}  {hasil['Status']}")
 
-end_time = time.time()
+end_time = datetime.now()
 execution_time = end_time - start_time
+execution_time = execution_time.total_seconds()
 menit = int(execution_time // 60)
 detik = int(execution_time % 60)
 
-print(f"mulai   : {start_time}")
-print(f"selesai : {end_time}")
+print("mulai   :", start_time.strftime("%H:%M:%S %d/%m/%Y"))
+print("selesai :", end_time.strftime("%H:%M:%S %d/%m/%Y"))
 print(f"Kode dieksekusi selama: {menit} menit {detik} detik (AUP EXPRESS)")
