@@ -49,7 +49,7 @@ for resi in nomor_resi_list:
     
     if 'delivered' in hasil.lower():
         status = 'SELESAI'
-    elif 'Error' in hasil.lower():
+    elif 'error' in hasil.lower():
         status = 'INVALID'
     else:
         status = 'OTW'
