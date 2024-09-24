@@ -40,7 +40,7 @@ print("KURIR : AUP EXPRESS")
 print("WAKTU :" ,start_time.strftime("%H:%M:%S %d/%m/%Y"))
 
 driver = setup_driver()
-df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=None)
+df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiAUP', header=0)
 nomor_resi_list = df[0].tolist()
 hasil_tracking = []
 
