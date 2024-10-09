@@ -24,7 +24,8 @@ def track_resi_lion(resi_number, driver):
     except:
         return "'group-wrapper' atau 'p' tidak ditemukan."
 
-start_time = time.time()
+start_time = datetime.now()
+print("WAKTU :" ,start_time.strftime("%H:%M:%S %d/%m/%Y"))
 
 driver = setup_driver()
 df = pd.read_excel("../Cek Resi/cekresi.xlsx", sheet_name='cekresiLION', header=None)
