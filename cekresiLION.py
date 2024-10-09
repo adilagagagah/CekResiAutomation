@@ -25,6 +25,7 @@ def track_resi_lion(resi_number, driver):
         return "'group-wrapper' atau 'p' tidak ditemukan."
 
 start_time = datetime.now()
+print("KURIR : LION PARCEL")
 print("WAKTU :" ,start_time.strftime("%H:%M:%S %d/%m/%Y"))
 
 driver = setup_driver()
