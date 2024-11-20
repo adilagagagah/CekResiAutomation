@@ -59,6 +59,7 @@ for hasil in hasil_tracking:
     
 end_time = datetime.now()
 execution_time = end_time - start_time
+execution_time = execution_time.total_seconds()
 menit = int(execution_time // 60)
 detik = int(execution_time % 60)
 
