@@ -57,7 +57,7 @@ print("LION PARCEL")
 for hasil in hasil_tracking:
     print(f"{hasil['No Resi']} {hasil['Status']}")
     
-end_time = time.time()
+end_time = datetime.now()
 execution_time = end_time - start_time
 menit = int(execution_time // 60)
 detik = int(execution_time % 60)
