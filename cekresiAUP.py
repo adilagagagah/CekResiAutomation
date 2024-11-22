@@ -7,7 +7,7 @@ import time
 
 def setup_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-ssl-errors=yes")
     chrome_options.add_argument("--ignore-certificate-errors")
     driver = webdriver.Chrome(options=chrome_options)
@@ -24,7 +24,7 @@ def track_resi_AUP(resi_number, driver):
     submit_button = driver.find_element(By.NAME, 'form-submitted')
     submit_button.click()
 
-    time.sleep(4)
+    time.sleep(5)
 
     try:
         table = driver.find_element(By.CLASS_NAME, 'ups-results')
