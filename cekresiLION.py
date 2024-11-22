@@ -14,11 +14,10 @@ def setup_driver():
     driver = webdriver.Chrome(options=chrome_options)
     return driver
 
-def track_resi_lion(resi_number, driver, ts=50):
+def track_resi_lion(resi_number, driver, ts):
     url = f"https://lionparcel.com/track/stt?q={resi_number}"
     driver.get(url)
     time.sleep(ts)
-    ts = 5
     try:
         group_wrapper = driver.find_element(By.CLASS_NAME, 'group-wrapper')
         p_element = group_wrapper.find_element(By.TAG_NAME, 'p')
@@ -36,8 +35,9 @@ nomor_resi_list = df[0].tolist()
 
 hasil_tracking = []
 
+ts = 50
 for resi in nomor_resi_list:
-    hasil = track_resi_lion(resi, driver, 50)
+    hasil = track_resi_lion(resi, driver, ts)
     
     if 'diterima oleh' in hasil.lower():
         status = 'SELESAI'
@@ -51,6 +51,7 @@ for resi in nomor_resi_list:
         'Perjalanan Terakhir': hasil, 
         'Status': status
     })
+    ts = 5
 
 driver.quit()
 
